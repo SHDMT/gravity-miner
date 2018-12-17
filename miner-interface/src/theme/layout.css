@@ -1,0 +1,40 @@
+.app-content{
+    height:100%;
+}
+.footer{
+    padding: 0px;
+    height:20px;
+    min-height:20px;
+}
+.header{
+}
+.content{
+    padding:15px;
+    height:730px;
+}
+.login-page{
+    margin-top:80px;
+}
+.login-page .ant-btn{
+    float:right;
+}
+.login-page .login-logo-icon{
+    height:48px;
+    margin-bottom: 14px;
+    margin-right: 6px;
+}
+.login-page .login-logo-title{
+    font-size:28px;
+    line-height:40px;
+    display:inline-block;
+    padding-top:16px;
+}
+.login-page .login-logo{
+    margin:10px 10px;
+}
+#root{
+    height:100%;
+}
+.App{
+    height:100%;
+}

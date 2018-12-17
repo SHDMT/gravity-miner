@@ -1,0 +1,10 @@
+.user-panel {
+    float:right;
+    cursor:pointer;
+}
+.user-panel .user-panel-name{
+    padding-left:8px;
+}
+.account-panel-menu-area{
+    margin-top:-15px;
+}
