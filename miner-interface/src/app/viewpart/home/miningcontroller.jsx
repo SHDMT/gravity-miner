@@ -55,22 +55,23 @@ class MiningController extends Component {
         }
     }
 
+    handleStopMining(){
+        request("stopmining", {}, (res)=>{
+            if (res.status === 200) {
+                this.setState({
+                    ismining: !this.state.ismining
+                });
+                console.log(res);
+                message.success("停止挖矿成功!");
+                this.stopRecord();
+            } else {
+                console.log(res.data);
+                message.error("停止挖矿失败!");
+            }
+        });
+    }
+
     handleStartMining() {
-        if(this.state.ismining){
-            request("stopmining", {}, (res)=>{
-                if (res.status === 200) {
-                    this.setState({
-                        ismining: !this.state.ismining
-                    });
-                    console.log(res);
-                    message.success("停止挖矿成功!");
-                    this.stopRecord();
-                } else {
-                    console.log(res.data);
-                    message.error("停止挖矿失败!");
-                }
-            });
-        }else{
             request("getminingaddr", {}, (res) => {
                 let address = res.data;
                 console.log(address)
@@ -92,7 +93,6 @@ class MiningController extends Component {
                     message.error("获取挖矿地址错误！请重新设置挖矿地址");
                 }
             });
-        }
 
     }
 
@@ -140,7 +140,7 @@ class MiningController extends Component {
     render() {
         let btn = <Button onClick={() => this.handleStartMining()} type="primary">启动挖矿</Button>
         if (this.state.ismining) {
-            btn = <Button onClick={() => this.handleStartMining()}>停止挖矿</Button>;
+            btn = <Button onClick={() => this.handleStopMining()}>停止挖矿</Button>;
         }
         return (
             <div className="homepage-panel mining-controller">
