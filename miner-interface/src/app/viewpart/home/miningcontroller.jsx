@@ -134,6 +134,9 @@ class MiningController extends Component {
     }
 
     stopRecord() {
+        for(let i = 0; i < DATACAP; i ++){
+            this.state.data.datasets[0].data[i] = 0;
+        }
         clearInterval(this.intervalObj);
     }
 
