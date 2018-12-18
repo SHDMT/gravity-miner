@@ -56,32 +56,43 @@ class MiningController extends Component {
     }
 
     handleStartMining() {
-        let action = this.state.ismining ? "停止" : "启动"
-        request("getminingaddr", {}, (res) => {
-            let address = res.data;
-            console.log(address)
-            if(res.status == 200){
-                request("startmining", {ncore:4, address: address}, (res) => {
-                    if (res.status === 200) {
-                        this.setState({
-                            ismining: !this.state.ismining
-                        });
-                        console.log(res);
-                        message.success(action + "挖矿成功!");
-                        if (this.state.ismining) {
+        if(this.state.ismining){
+            request("stopmining", {}, (res)=>{
+                if (res.status === 200) {
+                    this.setState({
+                        ismining: !this.state.ismining
+                    });
+                    console.log(res);
+                    message.success("停止挖矿成功!");
+                    this.stopRecord();
+                } else {
+                    console.log(res.data);
+                    message.error("停止挖矿失败!");
+                }
+            });
+        }else{
+            request("getminingaddr", {}, (res) => {
+                let address = res.data;
+                console.log(address)
+                if(res.status == 200){
+                    request("startmining", {ncore:4, address: address}, (res) => {
+                        if (res.status === 200) {
+                            this.setState({
+                                ismining: !this.state.ismining
+                            });
+                            console.log(res);
+                            message.success("启动挖矿成功!");
                             this.startRecord();
                         } else {
-                            this.stopRecord();
+                            console.log(res.data);
+                            message.error("启动挖矿失败!");
                         }
-                    } else {
-                        console.log(res.data);
-                        message.error(action + "挖矿失败!");
-                    }
-                });
-            }else{
-                message.error("获取挖矿地址错误！请重新设置挖矿地址");
-            }
-        })
+                    });
+                }else{
+                    message.error("获取挖矿地址错误！请重新设置挖矿地址");
+                }
+            });
+        }
 
     }
 
